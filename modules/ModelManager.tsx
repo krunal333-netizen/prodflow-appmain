@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo, useRef } from 'react';
 import { useApp } from '../context/AppContext';
-import { Model, BankDetails } from '../types';
+import { Model, ModelCharges, BankDetails } from '../types';
 import { PROFILE_TYPES } from '../constants';
 import { Card, Input, Button, Modal, Select, ConfirmationModal } from '../components/UI';
 import { 
