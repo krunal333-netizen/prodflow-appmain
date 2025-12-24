@@ -86,12 +86,33 @@ export const ModelManager: React.FC = () => {
   };
 
   const openEditModel = (model: Model) => {
-    setFormData({ 
-      ...initialModel, 
-      ...model, 
+    // Explicitly define charges to satisfy strict TypeScript requirement
+    const charges: ModelCharges = {
+      indoorReels: model.charges?.indoorReels ?? 0,
+      outdoorReels: model.charges?.outdoorReels ?? 0,
+      storeReels: model.charges?.storeReels ?? 0,
+      live: model.charges?.live ?? 0,
+      advt: model.charges?.advt ?? 0,
+      youtubeInfluencer: model.charges?.youtubeInfluencer ?? 0,
+      youtubeVideo: model.charges?.youtubeVideo ?? 0,
+      youtubeShorts: model.charges?.youtubeShorts ?? 0,
+      custom: model.charges?.custom ?? 0
+    };
+
+    // Explicitly define bankDetails to satisfy strict TypeScript requirement (TS2322)
+    const bankDetails: BankDetails = {
+      bankName: model.bankDetails?.bankName ?? '',
+      accountNumber: model.bankDetails?.accountNumber ?? '',
+      ifscCode: model.bankDetails?.ifscCode ?? '',
+      branchName: model.bankDetails?.branchName ?? ''
+    };
+
+    setFormData({
+      ...initialModel,
+      ...model,
+      charges,
+      bankDetails,
       profileType: Array.isArray(model.profileType) ? model.profileType : [model.profileType],
-      charges: { ...initialModel.charges, ...(model.charges || {}) },
-      bankDetails: { ...initialModel.bankDetails, ...(model.bankDetails || {}) },
       documents: model.documents || [],
       gallery: model.gallery || [],
       primaryImage: model.primaryImage || ''
