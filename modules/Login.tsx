@@ -73,8 +73,7 @@ export const Login: React.FC = () => {
         <div className="flex flex-col items-center justify-center gap-4 mb-10">
           <div className="h-20 w-full flex items-center justify-center">
              <img 
-               src={theme === 'light' ? 'logo-light-mode.png' : 'logo-dark-mode.png'} 
-               alt="ProdFlow Logo" 
+    src={theme === 'light' ? '/logo-light-mode.png' : '/logo-dark-mode.png'}               alt="ProdFlow Logo" 
                className="h-full w-auto object-contain block mx-auto transition-all duration-300"
                loading="eager"
              />
