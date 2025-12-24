@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProdFlow - Production Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              gray: {
+                750: '#2d3748',
+                850: '#1a202c',
+                950: '#0d1117',
+              }
+            },
+            boxShadow: {
+              'glow': '0 0 15px rgba(99, 102, 241, 0.5)',
+              'input-focus': '0 0 0 4px rgba(99, 102, 241, 0.15)',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      /* Hide number input spinners (Chrome, Safari, Edge, Opera) */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      /* Hide number input spinners (Firefox) */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+      
+      /* Print Styling for Invoices/POs */
+      @media print {
+        @page { margin: 0; }
+        body { margin: 1.6cm; background: white; color: black; }
+        .no-print { display: none !important; }
+        .print-only { display: block !important; }
+        .page-break { page-break-before: always; }
+        /* Reset dark mode for print */
+        .dark body { background: white; color: black; }
+        .dark * { background-color: white !important; color: black !important; border-color: black !important; }
+      }
+      .print-only { display: none; }
+
+      /* Modern Scrollbar Design - Global */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(156, 163, 175, 0.5); /* gray-400 with opacity */
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(107, 114, 128, 0.8); /* gray-500 */
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background-color: rgba(75, 85, 99, 0.5); /* gray-600 */
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(156, 163, 175, 0.8); /* gray-400 */
+      }
+      
+      /* Firefox Scrollbar */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+      }
+      .dark * {
+        scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+      }
+
+      /* Date Input Styling */
+      input[type="date"] {
+        position: relative;
+      }
+      /* This ensures the calendar popup respects the theme (Dark/Light) */
+      .dark input[type="date"] {
+        color-scheme: dark;
+      }
+      input[type="date"] {
+        color-scheme: light;
+      }
+
+      /* Customizing the calendar icon */
+      ::-webkit-calendar-picker-indicator {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+        cursor: pointer;
+        opacity: 0.6;
+        transition: 0.2s;
+        padding: 5px;
+      }
+      ::-webkit-calendar-picker-indicator:hover {
+        opacity: 1;
+      }
+      .dark ::-webkit-calendar-picker-indicator {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js",
+    "firebase/storage": "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "uuid": "https://esm.sh/uuid@^13.0.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "firebase/": "https://esm.sh/firebase@^12.6.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
